@@ -1,0 +1,127 @@
+{% extends "base.twig" %}
+
+{% block title %}Profile Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Friend Requests">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					<div id="right">
+						<form action="{{ logout }}" method="POST" accept-charset="utf-8">
+							<button type="submit" class="logout">Logout</button>
+						</form>
+						<div class="dropdown">
+
+							<button id="profile">
+								<a href="/profile"><img src='{{ full_url_for('home') }}assets/{% if credentials.picture %}uploads/{{ credentials.picture }} {% else %}images\no_user.jpg {% endif %}' alt='placeholder' width='32' height='32'>
+									{{ credentials.username }}</a>
+							</button>
+							<div class="dropdown-content">
+								<a href="/profile">Profile</a>
+								<a href="/user/wallet">Wallet</a>
+								<a href="/user/myGames">My Games</a>
+								<a href="/user/wishlist">Wishlist</a>
+								<a href="/user/friends">Friends</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main>
+				{% if requestTab %}
+					<h1>
+						Friend Requests
+					</h1>
+					{% if error %}
+						<p>ERROR: FORBIDDEN</p>
+					{% else %}
+						{% if requests %}
+							{% for request in requests %}
+								<div class="row">
+									<p>{{  request.username }}</p>
+									<form action="{{ url_for('accept-request', {'requestId': request.requestId}) }}" method="{{ formMethod }}" accept-charset="utf-8">
+										<button type="submit" class="submit">Accept</button>
+									</form>
+									<form action="{{ url_for('decline-request', {'requestId': request.requestId}) }}" method="{{ formMethod }}" accept-charset="utf-8">
+										<button type="submit" class="submit">Decline</button>
+									</form>
+								</div>
+							{% endfor %}
+						{% else %}
+							<p>
+								You don't have any friend requests.
+							</p>
+						{% endif %}
+						<a class="fake-btn" href="/user/friendRequests/send">Send a Friend Requests</a>
+					{% endif %}
+				{% else %}
+					<h1>
+						Send a Friend Request
+					</h1>
+					<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
+						<div class="row">
+							<label class="label">Username:
+							</label>
+							<input type="text" class="field" name="username" value="{% if formData.username %}{{ formData.username }}{% endif %}" required/>
+						</div>
+						<div class="rowError">
+							{% if formErrors.username %}
+								<p class="error">{{ formErrors.username }}</p>
+							{% endif %}
+							{% if successful %}
+								<p class="success">The request was sent succesfully</p>
+							{% endif %}
+						</div>
+
+						<div>
+							<button type="submit" class="submit">Submit</button>
+						</div>
+					</form>
+
+				{% endif %}
+
+			</main>
+			<footer>
+				<p>
+					© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+																																							Spain and other countries.
+																																							VAT included in all prices where applicable.
+				</p>
+				<p id="separators">
+					<a href="/" class="footer">Home</a>
+					|
+					<a href="/store" class="footer">Store</a>
+					|
+					<a href="/logout" class="footer">Logout</a>
+					|
+					<a href="/profile" class="footer">Profile</a>
+					|
+					<a href="/user/wallet" class="footer">Wallet</a>
+					|
+					<a href="/user/myGames" class="footer">My Games</a>
+					|
+					<a href="/user/wishlist" class="footer">Wishlist</a>
+					|
+					<a href="/user/friends" class="footer">Friends</a>
+				</p>
+			</footer>
+		</body>
+
+	</html>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.twig" %}
+
+{% block title %}Login Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Login page">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			{% if notifications is not empty %}
+				{% for notification in notifications %}
+					<div class="alert">
+						<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+						{{ notification }}
+					</div>
+				{% endfor %}
+			{% endif %}
+
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					<div id="right">
+						<a href="/login">Login</a>
+						<a href="/register">Register</a>
+					</div>
+				</div>
+			</header>
+			<main>
+				<h1>
+					Login
+				</h1>
+				<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
+					<div class="rowError">
+						{% if formErrors.generic %}
+							<p class="error">{{ formErrors.generic }}</p>
+						{% endif %}
+					</div>
+
+					<div class="row">
+						<label class="label">Username/Email:
+						</label>
+						<input type="text" class="field" name="info" value="{% if formData.info %}{{ formData.info }}{% endif %}" required/>
+					</div>
+
+					<div class="row">
+						<label class="label">Password:
+						</label>
+						<input type="password" class="field" name="password" required/>
+					</div>
+
+					<div>
+						<button type="submit" class="submit">Submit</button>
+					</div>
+				</form>
+
+			</main>
+			<footer>
+				<p>
+					© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+								Spain and other countries.
+								VAT included in all prices where applicable.
+				</p>
+				<p id="separators">
+					<a href="/" class="footer">Home</a>
+					|
+					<a href="/store" class="footer">Store</a>
+					|
+					<a href="/login" class="footer">Login</a>
+					|
+					<a href="/register" class="footer">Register</a>
+				</p>
+			</footer>
+		</body>
+
+	</html>
+
+{% endblock %}

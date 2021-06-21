@@ -1,0 +1,99 @@
+{% extends "base.twig" %}
+
+{% block title %}Home page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Landing page">
+			<link rel="stylesheet" href="{{ full_url_for('home') }}assets/css/styles.css"/>
+			<title>LSteam</title>
+		</head>
+
+		<body class="home">
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					{% if credentials %}
+						<div id="right">
+							<form action="{{ logout }}" method="POST" accept-charset="utf-8">
+							<button type="submit" class="logout">Logout</button>
+						</form>
+							<div class="dropdown">
+								<button id="profile">
+									<a href="/profile"><img src='{{ full_url_for('home') }}assets/{% if credentials.picture %}uploads/{{ credentials.picture }} {% else %}images\no_user.jpg {% endif %}' alt='placeholder' width='32' height='32'>
+										{{ credentials.username }}</a>
+								</button>
+								<div class="dropdown-content">
+									<a href="/profile">Profile</a>
+									<a href="/user/wallet">Wallet</a>
+									<a href="/user/myGames">My Games</a>
+									<a href="/user/wishlist">Wishlist</a>
+									<a href="/user/friends">Friends</a>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div id="right">
+							<a href="/login">Login</a>
+							<a href="/register">Register</a>
+						</div>
+					{% endif %}
+				</div>
+			</header>
+
+			<main>
+				<h1>BUY GAMES!</h1>
+			</main>
+			<footer>
+				{% if credentials %}
+					<p>
+						© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+																Spain and other countries.
+																VAT included in all prices where applicable.
+					</p>
+					<p id="separators">
+						<a href="/" class="footer">Home</a>
+						|
+						<a href="/store" class="footer">Store</a>
+						|
+						<a href="/logout" class="footer">Logout</a>
+						|
+						<a href="/profile" class="footer">Profile</a>
+						|
+						<a href="/user/wallet" class="footer">Wallet</a>
+						|
+						<a href="/user/myGames" class="footer">My Games</a>
+						|
+						<a href="/user/wishlist" class="footer">Wishlist</a>
+						|
+						<a href="/user/friends" class="footer">Friends</a>
+					</p>
+				{% else %}
+					<p>
+						© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+																Spain and other countries.
+																VAT included in all prices where applicable.
+					</p>
+					<p id="separators">
+						<a href="/" class="footer">Home</a>
+						|
+						<a href="/store" class="footer">Store</a>
+						|
+						<a href="/login" class="footer">Login</a>
+						|
+						<a href="/register" class="footer">Register</a>
+					</p>
+				{% endif %}
+			</footer>
+		</body>
+	</html>
+{% endblock %}

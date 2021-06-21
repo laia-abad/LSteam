@@ -1,0 +1,159 @@
+{% extends "base.twig" %}
+
+{% block title %}Store Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="{% if myGames %}My Games{% else %}Store page{% endif %}">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					{% if credentials %}
+
+						<div id="right">
+							<form action="{{ logout }}" method="POST" accept-charset="utf-8">
+								<button type="submit" class="logout">Logout</button>
+							</form>
+							<div class="dropdown">
+								<button id="profile">
+									<a href="/profile"><img src='{{ full_url_for('home') }}assets/{% if credentials.picture %}uploads/{{ credentials.picture }} {% else %}images\no_user.jpg {% endif %}' alt='placeholder' width='32' height='32'>
+										{{ credentials.username }}</a>
+								</button>
+								<div class="dropdown-content">
+									<a href="/profile">Profile</a>
+									<a href="/user/wallet">Wallet</a>
+									<a href="/user/myGames">My Games</a>
+									<a href="/user/wishlist">Wishlist</a>
+									<a href="/user/friends">Friends</a>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div id="right">
+							<a href="/login">Login</a>
+							<a href="/register">Register</a>
+						</div>
+					{% endif %}
+				</div>
+			</header>
+			<main>
+				{% if gameDetails %}
+
+					<h1>
+						{{  gameDetails.title }}
+					</h1>
+
+					<div class="game">
+						<img src={{ gameDetails.thumb }} width="auto" height="100">
+						<div class="info">
+							<p>{{  gameDetails.gameID }}</p>
+							<p>Price:
+								{{  gameDetails.normalPrice }}</p>
+							<p>Metacritic Score:
+								{{  gameDetails.metacriticScore }}</p>
+							<p>Steam Rating:
+								{{  gameDetails.steamRatingText }}
+								-
+								{{  gameDetails.steamRatingPercent }}% by
+								{{  gameDetails.steamRatingCount }}
+								users</p>
+							<p>Released:
+								{{  gameDetails.releaseDate }}</p>
+							<p>Last Change:
+								{{  gameDetails.lastChange }}</p>
+						</div>
+
+					</div>
+
+				{% else %}
+					<h1>
+						Wishlist
+					</h1>
+
+					<div class="box">
+						{% if wishlist %}
+							{% for game in wishlist %}
+								<div>
+									<p>{{  game.title }}</p>
+									<p>{{  game.gameID }}</p>
+									<img src={{ game.thumb }} width="auto" height="80">
+									<p>{{  game.normalPrice }}</p>
+									<form action="{{ url_for('buy-game', {'gameId': game.gameID}) }}" method="POST" accept-charset="utf-8">
+										<button type="submit" class="submit">Buy</button>
+									</form>
+									<form action="{{ url_for('show-details', {'gameId': game.gameID}) }}" method='GET' accept-charset="utf-8">
+										<button type="submit" class="submit">Show details</button>
+									</form>
+									<form action="{{ url_for('delete-wish', {'gameId': game.gameID}) }}" method='GET' accept-charset="utf-8">
+									 	<input type="hidden" name="_METHOD" value="DELETE"/>
+										<button type="submit" class="submit">Delete</button>
+									</form>
+								</div>
+							{% endfor %}
+						{% else %}
+							<p>You don't have any games in your wishlist.</p>
+							<br>
+							<p>Start browsing games in the store.</p>
+							<a class="fake-btn" href="/store">Store</a>
+						{% endif %}
+					</div>
+				{% endif %}
+
+			</main>
+			<footer>
+				{% if credentials %}
+					<p>
+						© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+																														Spain and other countries.
+																														VAT included in all prices where applicable.
+					</p>
+					<p id="separators">
+						<a href="/" class="footer">Home</a>
+						|
+						<a href="/store" class="footer">Store</a>
+						|
+						<a href="/logout" class="footer">Logout</a>
+						|
+						<a href="/profile" class="footer">Profile</a>
+						|
+						<a href="/user/wallet" class="footer">Wallet</a>
+						|
+						<a href="/user/myGames" class="footer">My Games</a>
+						|
+						<a href="/user/wishlist" class="footer">Wishlist</a>
+						|
+						<a href="/user/friends" class="footer">Friends</a>
+					</p>
+				{% else %}
+					<p>
+						© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+																																																																																											Spain and other countries.
+																																																																																											VAT included in all prices where applicable.
+					</p>
+					<p id="separators">
+						<a href="/" class="footer">Home</a>
+						|
+						<a href="/store" class="footer">Store</a>
+						|
+						<a href="/login" class="footer">Login</a>
+						|
+						<a href="/register" class="footer">Register</a>
+					</p>
+				{% endif %}
+			</footer>
+		</body>
+	</html>
+{% endblock %}

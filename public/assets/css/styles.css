@@ -1,0 +1,341 @@
+body {
+    font-family: Verdana;
+    margin: 0;
+    background-color: #495054;
+    /*background-image: url('https://ak.picdn.net/shutterstock/videos/14227898/thumb/1.jpg');*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+body.home {
+    font-family: Verdana;
+    margin: 0;
+    background-image: url('https://ak.picdn.net/shutterstock/videos/14227898/thumb/1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+#navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+    padding-right: 75px;
+    padding-left: 75px;
+    background-color: #25282A;
+    align-items: baseline;
+}
+
+#left {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: baseline;
+}
+
+#right {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: baseline;
+}
+
+a {
+    color: white;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: gainsboro;
+}
+
+a:active {
+    color: gray;
+}
+
+a#icon {
+    font-size: xx-large;
+    color: gray;
+    font-weight: bold;
+}
+
+main {
+    text-align: center;
+    margin: 50px;
+    color: gainsboro;
+}
+
+button#profile {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: medium;
+    font-family: Verdana;
+    padding: 10px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #535455;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: -100%;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    color: gainsboro;
+}
+
+.dropdown-content a:active {
+    color: gray;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    color: gray;
+}
+
+.dropdown:hover .dropbtn {
+    color: gray;
+}
+
+h1 {
+    color: gainsboro;
+    font-weight: 900;
+    margin: 30px;
+}
+
+p {
+    font-size: small;
+    color: gainsboro;
+}
+
+a.footer {
+    font-size: small;
+    color: gainsboro;
+}
+
+a.footer:hover {
+    color: white;
+}
+
+a.footer:active {
+    color: gray;
+}
+
+footer {
+    text-align: center;
+    background-color: #25282A;
+    padding: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+p#separators {
+    color: gray;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: auto 200px 250px auto;
+}
+
+.label {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 10px;
+}
+
+button.submit {
+    background-color: #25282A;
+    margin-top: 10px;
+    color: gray;
+    border: none;
+    font-size: large;
+    padding: 10px;
+    margin: 20px;
+    width: 250px;
+}
+
+button.submit:hover {
+    background-color: #25282A;
+    color: gainsboro;
+}
+
+button.submit:active {
+    background-color: black;
+}
+
+input.field {
+    background-color: gainsboro;
+    margin-top: 10px;
+    height: 20px;
+    border: none;
+    color: #25282A;
+}
+
+.rowError {
+    display: grid;
+    grid-template-columns: auto 200px 250px auto;
+    height: 30px;
+}
+
+.error {
+    font-size: x-small;
+    color: rgb(255, 123, 123);
+    text-align: left;
+    margin: 0;
+    grid-column: 3;
+    text-align: left;
+}
+
+input.field:disabled {
+    background-color: gray;
+    color: black;
+}
+
+.box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+a.submit {
+    color: gray;
+    font-size: large;
+}
+
+a.submit:hover {
+    color: gainsboro;
+}
+
+button.must-login:hover:before {
+    content: "You must login to buy games";
+}
+
+button.must-login:hover span {
+    display: none;
+    background-color: none;
+    color: gray;
+}
+
+button.must-login {
+    background-color: #25282A;
+    margin-top: 10px;
+    color: gray;
+    border: none;
+    font-size: large;
+    padding: 10px;
+    margin: 20px;
+    width: 250px;
+}
+
+button.must-login:hover {
+    background-color: transparent;
+    color: gray;
+    font-size: medium;
+}
+
+button.logout {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+    color: white;
+    font-size: medium;
+    font-family: Verdana;
+}
+
+button.logout:hover {
+    color: gainsboro;
+    cursor: pointer;
+}
+
+button.logout:active {
+    color: gray;
+}
+
+.alert {
+    padding: 20px;
+    background-color: rgb(255, 123, 123);
+    border: wheat;
+    color: white;
+    position: sticky;
+    top: 0;
+    left: 50%;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: gray;
+}
+
+a.fake-btn {
+    background-color: #25282A;
+    margin-top: 10px;
+    color: gray;
+    border: none;
+    font-size: large;
+    padding: 10px;
+    margin: 20px;
+    width: 250px;
+}
+
+a.fake-btn:hover {
+    background-color: #25282A;
+    color: gainsboro;
+}
+
+a.fake-btn:active {
+    background-color: black;
+}
+
+.success {
+    font-size: x-small;
+    color: rgb(165, 255, 123);
+    text-align: left;
+    margin: 0;
+    grid-column: 3;
+    text-align: left;
+}
+
+.game {
+    flex: ;
+}
+

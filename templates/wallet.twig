@@ -1,0 +1,99 @@
+{% extends "base.twig" %}
+
+{% block title %}Wallet Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Wallet page">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					<div id="right">
+						<form action="{{ logout }}" method="POST" accept-charset="utf-8">
+							<button type="submit" class="logout">Logout</button>
+						</form>
+						<div class="dropdown">
+							<button id="profile">
+								<a href="/profile"><img src='{{ full_url_for('home') }}assets/{% if credentials.picture %}uploads/{{ credentials.picture }} {% else %}images\no_user.jpg {% endif %}' alt='placeholder' width='32' height='32'>
+									{{ credentials.username }}</a>
+							</button>
+							<div class="dropdown-content">
+								<a href="/profile">Profile</a>
+								<a href="/user/wallet">Wallet</a>
+								<a href="/user/myGames">My Games</a>
+								<a href="/user/wishlist">Wishlist</a>
+								<a href="/user/friends">Friends</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main>
+				<h1>
+					Wallet
+				</h1>
+
+				<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
+					<div class="row">
+						<label class="label">Money in your wallet</label>
+						<p>{{ credentials.wallet }}€</p>
+					</div>
+
+					<div class="row">
+						<label class="label">Amount to add to wallet</label>
+						<input type="text" value="{% if formData.amount %}{{ formData.amount }}{% endif %}" class="field" name="amount"/>
+					</div>
+					<div class="rowError">
+						{% if formErrors.amount %}
+							<p class="error">{{ formErrors.amount}}</p>
+						{% endif %}
+					</div>
+
+					<div>
+						<button type="submit" class="submit">Add To Wallet</button>
+					</div>
+				</form>
+
+			</main>
+			<footer>
+				<p>
+					© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+									Spain and other countries.
+									VAT included in all prices where applicable.
+				</p>
+				<p id="separators">
+					<a href="/" class="footer">Home</a>
+					|
+					<a href="/store" class="footer">Store</a>
+					|
+					<a href="/logout" class="footer">Logout</a>
+					|
+					<a href="/profile" class="footer">Profile</a>
+					|
+					<a href="/user/wallet" class="footer">Wallet</a>
+					|
+					<a href="/user/myGames" class="footer">My Games</a>
+					|
+					<a href="/user/wishlist" class="footer">Wishlist</a>
+					|
+					<a href="/user/friends" class="footer">Friends</a>
+				</p>
+			</footer>
+		</body>
+
+	</html>
+
+{% endblock %}

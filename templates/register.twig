@@ -1,0 +1,153 @@
+{% extends "base.twig" %}
+
+{% block title %}Register Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Register page">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					<div id="right">
+						<a href="/login">Login</a>
+						<a href="/register">Register</a>
+					</div>
+				</div>
+			</header>
+			<main>
+				{% if not activation %}
+					{% if not finished %}
+						<h1>
+							Register
+						</h1>
+						<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8">
+							<div class="row">
+								<label class="label">Username*:
+								</label>
+								<input type="text" class="field" name="username" value="{% if formData.username %}{{ formData.username }}{% endif %}" required/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.username %}
+									<p class="error">{{ formErrors.username }}</p>
+								{% endif %}
+							</div>
+
+							<div class="row">
+								<label class="label">Email*:
+								</label>
+								<input type="email" class="field" name="email" value="{% if formData.email %}{{ formData.email }}{% endif %}" required/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.email %}
+									<p class="error">{{ formErrors.email }}</p>
+								{% endif %}
+							</div>
+
+							<div class="row">
+								<label class="label">Password*:
+								</label>
+								<input type="password" class="field" name="password" required/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.password %}
+									<p class="error">{{ formErrors.password }}</p>
+								{% endif %}
+							</div>
+
+							<div class="row">
+								<label class="label">Repeat password*:
+								</label>
+								<input type="password" class="field" name="passwordRepeat" required/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.passwordRepeat %}
+									<p class="error">{{ formErrors.passwordRepeat }}</p>
+								{% endif %}
+							</div>
+
+							<div class="row">
+								<label class="label">Date of birth*:
+									<br>(yyyy-mm-dd)
+								</label>
+								<input type="date" class="field" name="birthday" min="1900-01-01" value="{% if formData.birthday %}{{ formData.birthday }}{% endif %}" required/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.birthday %}
+									<p class="error">{{ formErrors.birthday }}</p>
+								{% endif %}
+							</div>
+
+							<div class="row">
+								<label class="label">Phone:
+								</label>
+								<input type="text" class="field" name="phone" value="{% if formData.phone %}{{ formData.phone }}{% endif %}"/>
+							</div>
+							<div class="rowError">
+								{% if formErrors.phone %}
+									<p class="error">{{ formErrors.phone }}</p>
+								{% endif %}
+							</div>
+
+							<div>
+								<button type="submit" class="submit">Submit</button>
+								<p>*Required</p>
+							</div>
+						</form>
+					{% else %}
+						{% if emailSent %}
+							<h1>
+								Email confirmation sent!
+							</h1>
+						{% else %}
+							<h1>
+								Error: The email confirmation could not be sent :(
+							</h1>
+						{% endif %}
+					{% endif %}
+				{% else %}
+					{% if correcte %}
+						<h1>
+							Your email has been confirmed! When you log in, 50€ will be added to your wallet.
+						</h1>
+					{% else %}
+						<h1>
+							Error: Invalid token
+						</h1>
+					{% endif %}
+				{% endif %}
+
+			</main>
+			<footer>
+				<p>
+					© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+								Spain and other countries.
+								VAT included in all prices where applicable.
+				</p>
+				<p id="separators">
+					<a href="/" class="footer">Home</a>
+					|
+					<a href="/store" class="footer">Store</a>
+					|
+					<a href="/login" class="footer">Login</a>
+					|
+					<a href="/register" class="footer">Register</a>
+				</p>
+			</footer>
+		</body>
+
+	</html>
+
+{% endblock %}

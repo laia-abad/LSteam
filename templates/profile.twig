@@ -1,0 +1,162 @@
+{% extends "base.twig" %}
+
+{% block title %}Profile Page
+{% endblock %}
+
+{% block content %}
+	<html>
+
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="author" content="Laia Abad i Silvia Miralles">
+			<meta name="description" content="Profile page">
+			<title>LSteam</title>
+		</head>
+
+		<body>
+			<header>
+				<div id="navigation">
+					<div id="left">
+						<a href="/" id="icon">LSteam</a>
+						<a href="/store">Store</a>
+					</div>
+
+					<div id="right">
+						<form action="{{ logout }}" method="POST" accept-charset="utf-8">
+							<button type="submit" class="logout">Logout</button>
+						</form>
+						<div class="dropdown">
+							<button id="profile">
+								<a href="/profile"><img src='{{ full_url_for('home') }}assets/{% if credentials.picture %}uploads/{{ credentials.picture }} {% else %}images\no_user.jpg {% endif %}' alt='placeholder' width='32' height='32'>
+									{{ credentials.username }}</a>
+							</button>
+							<div class="dropdown-content">
+								<a href="/profile">Profile</a>
+								<a href="/user/wallet">Wallet</a>
+								<a href="/user/myGames">My Games</a>
+								<a href="/user/wishlist">Wishlist</a>
+								<a href="/user/friends">Friends</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<main>
+				{% if not password %}
+					<h1>
+						Profile
+					</h1>
+					<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8" enctype="multipart/form-data">
+						<div class="row">
+							<label class="label">Username:
+							</label>
+							<input type="text" class="field" name="username" value="{{ credentials.username }}" disabled/>
+						</div>
+
+						<div class="row">
+							<label class="label">Email:
+							</label>
+							<input type="email" class="field" name="email" value="{{ credentials.email }}" disabled/>
+						</div>
+
+						<div class="row">
+							<label class="label">Birthday:</label>
+							<input type="date" class="field" name="birthday" value="{{ credentials.birthday }}" disabled/>
+						</div>
+
+						<div class="row">
+							<label class="label">Phone:
+							</label>
+							<input type="text" class="field" name="phone" value="{{ credentials.phone }}"/>
+						</div>
+						<div class="rowError">
+							{% if formErrors.phone %}
+								<p class="error">{{ formErrors.phone }}</p>
+							{% endif %}
+						</div>
+
+						<div class="row">
+							<label class="label">Picture:
+							</label>
+							<input type="file" class="field" name="picture" accept="image/png, image/jpeg"/>
+						</div>
+
+						<div class="rowError">
+							{% if formErrors.picture %}
+								<p class="error">{{ formErrors.picture }}</p>
+							{% endif %}
+						</div>
+
+						<div>
+							<button type="submit" class="submit">Update</button>
+							<a href="/profile/changePassword">Change Password</a>
+						</div>
+					</form>
+				{% else %}
+					<h1>
+						Change Password
+					</h1>
+					<form action="{{ formAction }}" method="{{ formMethod }}" accept-charset="utf-8" enctype="multipart/form-data">
+						<div class="rowError">
+							{% if formErrors.passwordGeneric %}
+								<p class="error">{{ formErrors.passwordGeneric }}</p>
+							{% else %}
+								<p>{{ success }}</p>
+							{% endif %}
+						</div>
+
+						<div class="row">
+							<label class="label">Old Password*:
+							</label>
+							<input type="password" class="field" name="old_password" required/>
+						</div>
+
+						<div class="row">
+							<label class="label">New Password*:
+							</label>
+							<input type="password" class="field" name="password" required/>
+						</div>
+
+						<div class="row">
+							<label class="label">Confirm Password*:
+							</label>
+							<input type="password" class="field" name="passwordRepeat" required/>
+						</div>
+
+						<div>
+							<button type="submit" class="submit">Save</button>
+						</div>
+					</form>
+
+				{% endif %}
+
+			</main>
+			<footer>
+				<p>
+					© 2021 LaSalle Corporation. All rights reserved. All trademarks are property of their respective owners in
+									Spain and other countries.
+									VAT included in all prices where applicable.
+				</p>
+				<p id="separators">
+					<a href="/" class="footer">Home</a>
+					|
+					<a href="/store" class="footer">Store</a>
+					|
+					<a href="/logout" class="footer">Logout</a>
+					|
+					<a href="/profile" class="footer">Profile</a>
+					|
+					<a href="/user/wallet" class="footer">Wallet</a>
+					|
+					<a href="/user/myGames" class="footer">My Games</a>
+					|
+					<a href="/user/wishlist" class="footer">Wishlist</a>
+					|
+					<a href="/user/friends" class="footer">Friends</a>
+				</p>
+			</footer>
+		</body>
+
+	</html>
+
+{% endblock %}
